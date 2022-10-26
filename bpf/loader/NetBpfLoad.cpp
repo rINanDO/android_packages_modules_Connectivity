@@ -1624,8 +1624,6 @@ static int doLoad(char** argv, char * const envp[]) {
             ALOGE("If this triggers randomly, you might be hitting some memory allocation "
                   "problems or startup script race.");
             ALOGE("--- DO NOT EXPECT SYSTEM TO BOOT SUCCESSFULLY ---");
-            sleep(20);
-            return 2;
         }
     }
 
@@ -1635,11 +1633,10 @@ static int doLoad(char** argv, char * const envp[]) {
             createMap(BPF_MAP_TYPE_ARRAY, sizeof(key), sizeof(value), 2, 0));
     if (writeToMapEntry(map, &key, &value, BPF_ANY)) {
         ALOGE("Critical kernel bug - failure to write into index 1 of 2 element bpf map array.");
-        return 1;
     }
 
     // leave a flag that we're done
-    if (createSysFsBpfSubDir("netd_shared/mainline_done")) return 1;
+    createSysFsBpfSubDir("netd_shared/mainline_done");
 
     // platform bpfloader will only succeed when run as root
     if (!runningAsRoot) {
