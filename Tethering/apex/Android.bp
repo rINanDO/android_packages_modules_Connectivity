@@ -125,10 +125,10 @@ apex {
         "ServiceConnectivityResources",
     ],
     prebuilts: [
-        "current_sdkinfo",
-        "netbpfload.mainline.rc",
         "ot-daemon.init.34rc",
         "TetheringOutOfProcessFlag",
+        "current_sdkinfo",
+        "privapp_allowlist_com.android.tethering",
     ],
     manifest: "manifest.json",
     key: "com.android.tethering.key",
