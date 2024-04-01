@@ -226,7 +226,7 @@ android_app {
     certificate: "networkstack",
     manifest: "AndroidManifest.xml",
     use_embedded_native_libs: true,
-    privapp_allowlist: ":privapp_allowlist_com.android.tethering",
+    required: ["privapp_allowlist_com.android.tethering"],
     apex_available: ["com.android.tethering"],
 }
 
@@ -241,7 +241,7 @@ android_app {
     certificate: "networkstack",
     manifest: "AndroidManifest.xml",
     use_embedded_native_libs: true,
-    privapp_allowlist: ":privapp_allowlist_com.android.tethering",
+    required: ["privapp_allowlist_com.android.tethering"],
     apex_available: ["com.android.tethering"],
     lint: {
         error_checks: ["NewApi"],
