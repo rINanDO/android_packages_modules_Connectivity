@@ -76,7 +76,6 @@ java_defaults {
         "net-utils-connectivity-apks",
         "netd-client",
         "tetheringstatsprotos",
-        "org.lineageos.platform.lineagesettings",
     ],
     defaults: ["TetheringExternalLibs"],
     libs: [
