@@ -190,7 +190,7 @@ public class BpfNetMaps {
             return new BpfMap<>(
                     CONFIGURATION_MAP_PATH, S32.class, U32.class);
         } catch (ErrnoException e) {
-            throw new IllegalStateException("Cannot open netd configuration map", e);
+            return null;
         }
     }
 
@@ -200,7 +200,7 @@ public class BpfNetMaps {
             return new BpfMap<>(
                     UID_OWNER_MAP_PATH, S32.class, UidOwnerValue.class);
         } catch (ErrnoException e) {
-            throw new IllegalStateException("Cannot open uid owner map", e);
+            return null;
         }
     }
 
@@ -210,7 +210,7 @@ public class BpfNetMaps {
             return new BpfMap<>(
                     UID_PERMISSION_MAP_PATH, S32.class, U8.class);
         } catch (ErrnoException e) {
-            throw new IllegalStateException("Cannot open uid permission map", e);
+            return null;
         }
     }
 
@@ -220,7 +220,7 @@ public class BpfNetMaps {
             return new BpfMap<>(COOKIE_TAG_MAP_PATH,
                     CookieTagMapKey.class, CookieTagMapValue.class);
         } catch (ErrnoException e) {
-            throw new IllegalStateException("Cannot open cookie tag map", e);
+            return null;
         }
     }
 
@@ -230,7 +230,7 @@ public class BpfNetMaps {
             return new BpfMap<>(
                     DATA_SAVER_ENABLED_MAP_PATH, S32.class, U8.class);
         } catch (ErrnoException e) {
-            throw new IllegalStateException("Cannot open data saver enabled map", e);
+            return null;
         }
     }
 
@@ -240,7 +240,7 @@ public class BpfNetMaps {
             return new BpfMap<>(INGRESS_DISCARD_MAP_PATH,
                     IngressDiscardKey.class, IngressDiscardValue.class);
         } catch (ErrnoException e) {
-            throw new IllegalStateException("Cannot open ingress discard map", e);
+            return null;
         }
     }
 
