@@ -864,7 +864,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             try {
                 return new BpfMap<>(IFACE_STATS_MAP_PATH, S32.class, StatsMapValue.class);
             } catch (ErrnoException e) {
-                throw new IllegalStateException("Failed to open interface stats map", e);
+		Log.wtf(TAG, "Failed to open interface stats map: " + e);
+                return null;
             }
         }
 
