@@ -252,6 +252,9 @@ public class BpfNetMaps {
         if (sConfigurationMap == null) {
             sConfigurationMap = getConfigurationMap();
         }
+
+        if (sConfigurationMap == null) return;
+
         try {
             sConfigurationMap.updateEntry(UID_RULES_CONFIGURATION_KEY,
                     new U32(UID_RULES_DEFAULT_CONFIGURATION));
@@ -496,6 +499,8 @@ public class BpfNetMaps {
     @Deprecated
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public boolean isChainEnabled(final int childChain) {
+        if (sConfigurationMap == null) return false;
+
         return BpfNetMapsUtils.isChainEnabled(sConfigurationMap, childChain);
     }
 
@@ -926,6 +931,8 @@ public class BpfNetMaps {
      */
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public int getUidNetworkingBlockedReasons(final int uid) {
+        if (sConfigurationMap == null) return 0;
+
         return BpfNetMapsUtils.getUidNetworkingBlockedReasons(uid,
                 sConfigurationMap, sUidOwnerMap, sDataSaverEnabledMap);
     }
@@ -957,6 +964,8 @@ public class BpfNetMaps {
      */
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public boolean isUidNetworkingBlocked(final int uid, boolean isNetworkMetered) {
+        if (sConfigurationMap == null) return false;
+
         return BpfNetMapsUtils.isUidNetworkingBlocked(uid, isNetworkMetered,
                 sConfigurationMap, sUidOwnerMap, sDataSaverEnabledMap);
     }
