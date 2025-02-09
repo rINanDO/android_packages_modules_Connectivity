@@ -135,6 +135,8 @@ public class BpfMap<K extends Struct, V extends Struct> implements IBpfMap<K, V>
      */
     @Override
     public void updateEntry(K key, V value) throws ErrnoException {
+        if (mMapFd == null) return;
+
         nativeWriteToMapEntry(mMapFd.getFd(), key.writeToBytes(), value.writeToBytes(), BPF_ANY);
     }
 
@@ -145,6 +147,8 @@ public class BpfMap<K extends Struct, V extends Struct> implements IBpfMap<K, V>
     @Override
     public void insertEntry(K key, V value)
             throws ErrnoException, IllegalStateException {
+        if (mMapFd == null) return;
+
         try {
             nativeWriteToMapEntry(mMapFd.getFd(), key.writeToBytes(), value.writeToBytes(),
                     BPF_NOEXIST);
@@ -162,6 +166,8 @@ public class BpfMap<K extends Struct, V extends Struct> implements IBpfMap<K, V>
     @Override
     public void replaceEntry(K key, V value)
             throws ErrnoException, NoSuchElementException {
+        if (mMapFd == null) return;
+
         try {
             nativeWriteToMapEntry(mMapFd.getFd(), key.writeToBytes(), value.writeToBytes(),
                     BPF_EXIST);
@@ -181,6 +187,8 @@ public class BpfMap<K extends Struct, V extends Struct> implements IBpfMap<K, V>
     @Override
     public boolean insertOrReplaceEntry(K key, V value)
             throws ErrnoException {
+        if (mMapFd == null) return false;
+
         try {
             nativeWriteToMapEntry(mMapFd.getFd(), key.writeToBytes(), value.writeToBytes(),
                     BPF_NOEXIST);
@@ -207,11 +215,14 @@ public class BpfMap<K extends Struct, V extends Struct> implements IBpfMap<K, V>
     /** Remove existing key from eBpf map. Return false if map was not modified. */
     @Override
     public boolean deleteEntry(K key) throws ErrnoException {
+        if (mMapFd == null) return false;
+
         return nativeDeleteMapEntry(mMapFd.getFd(), key.writeToBytes());
     }
 
     private K getNextKeyInternal(@Nullable K key) throws ErrnoException {
         byte[] rawKey = new byte[mKeySize];
+        if (mMapFd == null) return null;
 
         if (!nativeGetNextMapKey(mMapFd.getFd(),
                                  key == null ? null : key.writeToBytes(),
@@ -243,6 +254,8 @@ public class BpfMap<K extends Struct, V extends Struct> implements IBpfMap<K, V>
     /** Check whether a key exists in the map. */
     @Override
     public boolean containsKey(@NonNull K key) throws ErrnoException {
+        if (mMapFd == null) return false;
+
         Objects.requireNonNull(key);
 
         byte[] rawValue = new byte[mValueSize];
@@ -252,6 +265,8 @@ public class BpfMap<K extends Struct, V extends Struct> implements IBpfMap<K, V>
     /** Retrieve a value from the map. Return null if there is no such key. */
     @Override
     public V getValue(@NonNull K key) throws ErrnoException {
+        if (mMapFd == null) return null;
+
         Objects.requireNonNull(key);
 
         byte[] rawValue = new byte[mValueSize];
