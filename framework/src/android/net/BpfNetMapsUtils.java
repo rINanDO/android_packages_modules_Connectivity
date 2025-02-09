@@ -261,6 +261,8 @@ public class BpfNetMapsUtils {
             IBpfMap<S32, UidOwnerValue> uidOwnerMap,
             IBpfMap<S32, U8> dataSaverEnabledMap
     ) {
+        if (configurationMap == null) return BLOCKED_REASON_NONE;
+
         // System uids are not blocked by firewall chains, see bpf_progs/netd.c
         // TODO: b/348513058 - use UserHandle.isCore() once it is accessible
         if (UserHandle.getAppId(uid) < Process.FIRST_APPLICATION_UID) {
