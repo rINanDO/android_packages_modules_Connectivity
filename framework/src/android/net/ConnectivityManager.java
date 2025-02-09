@@ -1752,6 +1752,9 @@ public class ConnectivityManager {
             return mService.getNetworkInfo(networkType);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
+        } catch (Throwable e) {
+            Log.e(TAG, "Unexpected error while calling getNeworkInfo", e);
+            return null;
         }
     }
 
