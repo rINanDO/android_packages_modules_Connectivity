@@ -3305,7 +3305,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         try {
             return mStatsFactory.readNetworkStatsSummaryXt();
         } catch (IOException e) {
-            throw new IllegalStateException(e);
+            Log.wtf(TAG, "problem readNetworkStatsSummaryXt", e);
+            return new NetworkStats(0, 0);
         }
     }
 
@@ -3313,7 +3314,8 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         try {
             return mStatsFactory.readNetworkStatsDetail(uid, ifaces, tag);
         } catch (IOException e) {
-            throw new IllegalStateException(e);
+            Log.wtf(TAG, "problem readNetworkStatsSummaryXt", e);
+            return new NetworkStats(0, 0);
         }
     }
 
